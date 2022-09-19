@@ -1,1 +1,1 @@
-# booyer-moore-brute-force
+# Comparação Booyer Moore com o Brute Force
