@@ -2,16 +2,20 @@ import time
 import statistics
 
 
-def searchbruteforce(pat, txt):
-    n, m = len(txt), len(pat)
-    for i in range(1 + (n - m)):
-        match = True
-        for j in range(m):
-            if txt[i + j] != pat[j]:
-                match = False
-                break
-        if match:
-            print("Padrão {} encontrado no índice = {}".format(pat, i))
+def searchbruteforce(txt, pat):
+    i = 0
+    j = 0
+    while i < len(txt) and j < len(pat):
+        if txt[i] == pat[j]:
+            i += 1
+            j += 1
+        else:
+            i = i - j + 1
+            j = 0
+    if j >= len(pat):
+        return i - len(pat)
+    else:
+        return 0
 
 
 def badCharHeuristic(string, size):
@@ -31,7 +35,6 @@ def search(txt, pat):
         while j >= 0 and pat[j] == txt[s + j]:
             j -= 1
         if j < 0:
-            print("Padrão {} encontrado no índice = {}".format(pat, s))
             s += (m - badChar[ord(txt[s + m])] if s + m < n else 1)
         else:
             s += max(1, j - badChar[ord(txt[s + j])])
@@ -73,7 +76,9 @@ def bruteforce():
 
 
 def main():
+    print('Resultados Boyer-Moore')
     boyer_moore()
+    print('Força Bruta')
     bruteforce()
 
 
